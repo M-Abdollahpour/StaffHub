@@ -9,12 +9,22 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
+    "@ant-design/icons": "~6.3.4",
+    "@blobatar/react": "^2.7.0",
+    "@hookform/resolvers": "^5.9.1",
     "@react-router/node": "^8",
     "@react-router/serve": "^8",
+    "antd": "^6.6.2",
+    "blobatar": "^2.7.0",
     "isbot": "^5.1.36",
+    "nanoid": "^6.0.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "react-router": "^8"
+    "react-hook-form": "^7.87.0",
+    "react-icons": "^5.7.0",
+    "react-router": "^8",
+    "yup": "^1.7.1",
+    "zustand": "^5.0.15"
   },
   "devDependencies": {
     "@react-router/dev": "^8",

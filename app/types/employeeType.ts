@@ -1,0 +1,45 @@
+type Role = "user" | "admin";
+type Gender = "male" | "female";
+type Status = "active" | "inactive" | "onLeave";
+type MaritalStatus = "single" | "married";
+type Id = string;
+type Language = "persian" | "english" | "france" | "spain" | "italy";
+type Education = {
+  id: Id;
+  degree: string;
+  field: string;
+  university: string;
+  startYear?: number;
+  endYear?: number;
+};
+type WorkExperience = {
+  id: Id;
+  title: string;
+  company: string;
+  startDate?: number;
+  endDate?: number;
+  description: string;
+};
+export type Employee = {
+  id: Id;
+  avatar?: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  department: string;
+  role: Role;
+  status: Status;
+  position: string;
+  gender: Gender;
+  birthDate?: number;
+  skills: string[];
+  language: Language[];
+  education: Education[];
+  workExperience: WorkExperience[];
+  maritalStatus: MaritalStatus;
+  city: string;
+  address?: string;
+  hireDate?: number;
+  password: string;
+};
