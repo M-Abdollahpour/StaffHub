@@ -3,15 +3,13 @@ import { useAuthStore } from "~/stores/useAuthStore";
 import { IoLogOutOutline } from "react-icons/io5";
 import { useNavigate, Outlet } from "react-router";
 import { Spin, Menu, Button } from "antd";
+import { MdOutlineDashboardCustomize } from "react-icons/md";
+import { CgProfile } from "react-icons/cg";
 import {
   LoadingOutlined,
-  AppstoreOutlined,
-  ContainerOutlined,
   DesktopOutlined,
-  MailOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  PieChartOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 type MenuItem = Required<MenuProps>["items"][number];
@@ -23,25 +21,18 @@ const DashboardLayout = () => {
   const [isSiderOpen, setIsSiderOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const items: CustomItem[] = [
-    { key: "1", icon: <PieChartOutlined />, label: "Profile" },
     {
-      key: "2",
+      key: "dashboard",
+      icon: <MdOutlineDashboardCustomize />,
+      label: "Dashboard",
+    },
+    { key: "profile", icon: <CgProfile />, label: "Profile" },
+    {
+      key: "employees",
       icon: <DesktopOutlined />,
       label: "Employees",
       adminOnly: true,
     },
-    // { key: "3", icon: <ContainerOutlined />, label: "Option 3" },
-    // {
-    //   key: "sub1",
-    //   label: "Navigation One",
-    //   icon: <MailOutlined />,
-    //   children: [
-    //     { key: "5", label: "Option 5" },
-    //     { key: "6", label: "Option 6" },
-    //     { key: "7", label: "Option 7" },
-    //     { key: "8", label: "Option 8" },
-    //   ],
-    // },
   ];
   const itemsProp = items.filter((item) => {
     if (item.adminOnly) {
@@ -61,12 +52,14 @@ const DashboardLayout = () => {
       navigate("/");
     }, 500);
   };
-
+  const handleMenuClick: MenuProps["onClick"] = (info) => {
+    navigate(`/${info.key}`);
+  };
   return (
     <div className="min-h-screen">
       <div className="grid grid-cols-[auto_1fr] grid-rows-[auto_1fr] min-h-screen">
         <div
-          className={`text-white/50 flex flex-col justify-between  items-center row-span-2 bg-[#000c18] ${isSiderOpen ? "w-64" : "w-20"} transition-all duration-200`}
+          className={`text-white/50 flex flex-col justify-between  items-center row-span-2 bg-[#000c18] ${isSiderOpen ? "w-52" : "w-20"} transition-all duration-200`}
         >
           <div>
             <div
@@ -77,12 +70,13 @@ const DashboardLayout = () => {
           </div>
           <div className="w-full">
             <Menu
-              defaultSelectedKeys={["1"]}
-              // defaultOpenKeys={["sub1"]}
+              defaultSelectedKeys={["dashboard"]}
+              defaultOpenKeys={["dashboard"]}
               mode="inline"
               theme="dark"
               inlineCollapsed={!isSiderOpen}
               items={itemsProp}
+              onClick={handleMenuClick}
             />
           </div>
           <div
@@ -112,8 +106,8 @@ const DashboardLayout = () => {
           </Button>
           header
         </div>
-        <div className="bg-gray-200">
-          <div className="mx-4 my-6 p-4 rounded-xl bg-white">
+        <div className="bg-gray-200 p-6">
+          <div className="rounded-xl bg-white h-full relative p-4">
             <Outlet />
           </div>
         </div>

@@ -14,7 +14,7 @@ export const employees: Employee[] = [
     position: "",
     gender: "male",
     birthDate: 1370,
-    skills: [],
+    skills: ["HTML", "Css", "JavaScript", "React"],
     language: ["persian", "english"],
     education: [
       {
@@ -29,11 +29,11 @@ export const employees: Employee[] = [
     workExperience: [
       {
         id: nanoid(),
-        title: "",
+        title: "Manager",
         company: "admistory road and urban",
         startDate: 1399,
         endDate: 1403,
-        description: "work",
+        description: "Work",
       },
     ],
     maritalStatus: "single",
