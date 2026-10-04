@@ -1,87 +1,54 @@
-# Welcome to React Router!
+# TechNova HR Panel
 
-A modern, production-ready template for building full-stack React applications using React Router.
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+A role-based employee management panel built as a portfolio project. Employees (users) manage their own personal profile, while admins oversee organizational data across the company — all backed by a simulated API so the demo runs without a real backend.
 
 ## Features
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+- **Authentication** — email/password login against mock employee data, with role-based redirect after login
+- **Role-based access** — two roles, `admin` and `user`, each seeing a tailored dashboard and sidebar
+- **Profile management** — employees view and edit their own personal information (contact details, education, work experience, skills, languages), with avatar upload (local preview, no real server)
+- **Dynamic, validated forms** — built with `react-hook-form` + `yup`, including dynamic add/remove fields for education and work history
+- **Simulated REST API** — mock `get`/`add`/`update`/`remove` functions that mimic real async API calls (with artificial delay), so the data layer can later be swapped for a real backend with minimal changes
+- **Persistent session** — logged-in state survives page refresh via Zustand's `persist` middleware
+
+## Tech Stack
+
+- **React** + **TypeScript**
+- **React Router** (layout routes for shared sidebar/header)
+- **Zustand** — state management (auth store with `persist`)
+- **React Hook Form** + **Yup** — form state and validation
+- **Ant Design** — UI components (forms, menus, modals, date pickers)
+- **Tailwind CSS** — layout and styling
+
+## Project Structure
+
+```
+src/
+├── components/       # UI components (admin/, user/, profile/, shared)
+├── stores/           # Zustand stores (e.g. useAuthStore)
+├── types/            # TypeScript types (Employee, roles, etc.)
+├── mocks/
+│   ├── data/          # Mock employee dataset
+│   └── api/           # Simulated API functions (get/add/update/remove)
+├── routes/           # Route-level pages (Login, Dashboard, Profile, Employees)
+└── hooks/            # Custom hooks
+```
+
+## Data Model
+
+Each employee record includes personal info (name, contact, city, address, gender, marital status), professional info (skills, languages, education history, work experience), and organizational info (department, position, role, status, hire date). Organizational fields are managed by admins; personal fields are self-managed by each employee.
 
 ## Getting Started
 
-### Installation
-
-Install the dependencies:
-
 ```bash
 npm install
-```
-
-### Development
-
-Start the development server with HMR:
-
-```bash
 npm run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
+The app runs entirely on mock data — no backend setup required. Sample login credentials are available in `mocks/data/data.ts`.
 
-## Building for Production
+## Roadmap
 
-Create a production build:
-
-```bash
-npm run build
-```
-
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
-
-```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+- Employee management page for admins (view/edit organizational data, role-based access control)
+- Sign-up flow for new employees
+- Dashboard statistics and charts
