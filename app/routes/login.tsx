@@ -48,7 +48,7 @@ const Login = () => {
   return (
     <div className="min-h-screen">
       {contextHolder}
-      <div className="flex min-h-screen bg-[url(wall.jpg)] bg-no-repeat bg-center bg-cover">
+      <div className="flex min-h-screen bg-[url('/wall.jpg')] bg-no-repeat bg-center bg-cover">
         <div className="w-1/2 text-white opacity-50 gap-4 flex flex-col justify-center items-center">
           <h1 className="text-4xl font-bold">LOGIN</h1>
           <p className="italic">FOLLOW YOUR REAM!</p>
