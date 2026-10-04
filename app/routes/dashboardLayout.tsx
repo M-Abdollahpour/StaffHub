@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuthStore } from "~/stores/useAuthStore";
 import { IoLogOutOutline } from "react-icons/io5";
-import { useNavigate, Outlet } from "react-router";
+import { useNavigate, Outlet, useLocation } from "react-router";
 import { Spin, Menu, Button } from "antd";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
@@ -42,6 +42,7 @@ const DashboardLayout = () => {
     }
   });
   const navigate = useNavigate();
+
   const toggleSider = () => {
     setIsSiderOpen((prev) => !prev);
   };
@@ -70,8 +71,6 @@ const DashboardLayout = () => {
           </div>
           <div className="w-full">
             <Menu
-              defaultSelectedKeys={["dashboard"]}
-              defaultOpenKeys={["dashboard"]}
               mode="inline"
               theme="dark"
               inlineCollapsed={!isSiderOpen}

@@ -6,7 +6,10 @@ const Profile = () => {
   return (
     <div>
       {isEditing ? (
-        <ProfileEdit />
+        <ProfileEdit
+          onSave={() => setIsediting(false)}
+          onCancel={() => setIsediting(false)}
+        />
       ) : (
         <ProfileView onEdit={() => setIsediting(true)} />
       )}

@@ -1,9 +1,9 @@
 type Role = "user" | "admin";
-type Gender = "male" | "female";
+export type Gender = "male" | "female";
 type Status = "active" | "inactive" | "onLeave";
-type MaritalStatus = "single" | "married";
+export type MaritalStatus = "single" | "married";
 type Id = string;
-type Language = "persian" | "english" | "france" | "spain" | "italy";
+export type Language = "persian" | "english" | "french" | "spanish" | "italian";
 type Education = {
   id: Id;
   degree: string;

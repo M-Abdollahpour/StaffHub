@@ -7,11 +7,17 @@ type AuthState = {
   currentUser: Employee | null;
   login: (email: string, password: string) => boolean;
   logout: () => void;
+  updateCurrentUser: (employee: Employee) => void;
 };
 export const useAuthStore = create<AuthState>()(
   persist(
     (set, get) => ({
       currentUser: null,
+      updateCurrentUser: (employee) => {
+        set(() => ({
+          currentUser: employee,
+        }));
+      },
       login: (email, password) => {
         const findItem = employees.find(
           (item) => item.email === email && item.password === password,
