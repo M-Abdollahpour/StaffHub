@@ -48,12 +48,16 @@ const Login = () => {
   return (
     <div className="min-h-screen">
       {contextHolder}
-      <div className="flex min-h-screen flex-col bg-[url('/wall.jpg')] bg-cover bg-center bg-no-repeat md:flex-row">
+      <div className="flex min-h-dvh flex-col bg-[url('/wall.jpg')] bg-cover bg-center bg-no-repeat md:flex-row">
         <div className="hidden w-1/2 flex-col items-center justify-center gap-4 text-white/50 md:flex">
           <h1 className="text-4xl font-bold">LOGIN</h1>
-          <p className="italic">FOLLOW YOUR TEAM!</p>
+          <p className="italic">FOLLOW YOUR DREAM!</p>
         </div>
         <div className="flex min-h-screen w-full flex-col items-center justify-center bg-white/10 px-4 py-8 text-white backdrop-blur-sm md:w-1/2 md:px-8">
+          <div className="flex gap-2 flex-col text-white/50 justify-center items-center mb-5 md:hidden">
+            <h1 className="text-2xl font-bold">LOGIN</h1>
+            <p className="italic">FOLLOW YOUR DREAM!</p>
+          </div>
           <div className="flex w-full max-w-md items-center justify-center rounded-2xl border-4 border-double border-white px-5 py-10 sm:px-10 sm:py-16 md:py-20">
             <form onSubmit={handleSubmit(onSubmit)} className="w-full">
               <div className="flex flex-col gap-5">
