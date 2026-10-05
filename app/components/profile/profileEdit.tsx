@@ -205,7 +205,7 @@ const ProfileEdit = ({ onSave, onCancel }: OnSave) => {
       {contextHolder}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-2 md:gap-4 items-center">
             <div>
               <Upload
                 name="avatar"
@@ -245,7 +245,7 @@ const ProfileEdit = ({ onSave, onCancel }: OnSave) => {
             <div className="absolute left-4 -top-3 bg-white font-bold">
               Personal Information
             </div>
-            <ul className="grid grid-cols-2 gap-4">
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {personalInfo.map((item) => (
                 <li key={item.label} className=" flex flex-col gap-1">
                   <div>{item.label}</div>
@@ -306,7 +306,7 @@ const ProfileEdit = ({ onSave, onCancel }: OnSave) => {
               </li>
             </ul>
           </div>
-          <div className="mt-8 grid grid-cols-2 gap-8 border p-4 rounded-lg border-gray-400/40 relative">
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 border p-4 rounded-lg border-gray-400/40 relative">
             <div className="absolute left-4 -top-3 bg-white font-bold">
               Professional Background
             </div>
@@ -564,7 +564,7 @@ const ProfileEdit = ({ onSave, onCancel }: OnSave) => {
                         {...field}
                         mode="tags"
                         options={[]}
-                        className="border! border-black! shadow-none! focus-within:border-blue-600! focus-within:border-2! rounded! w-full! mt-2! px-4! py-2! h-10! items-center!"
+                        className="border! bg-gray-100! border-black! shadow-none! focus-within:border-blue-600! focus-within:border-2! rounded! w-full! mt-2! px-4! py-2! items-center!"
                       />
                     )}
                   />
