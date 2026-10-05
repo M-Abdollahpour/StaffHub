@@ -29,11 +29,11 @@ const ProfileView = ({ onEdit }: OnEdit) => {
   return (
     <div className="container mx-auto">
       <div>
-        <div className="flex gap-2 items-center md:gap-4">
+        <div className="flex flex-col p-2 items-center gap-2  md:gap-4 md:flex-row">
           <span>
             <Avatar size={100}>{currentUser?.firstName?.charAt(0)}</Avatar>
           </span>
-          <div className="flex flex-col gap-1">
+          <div className="flex justify-center items-center flex-col gap-1 md:justify-center md:items-start">
             <span className="font-bold">
               {currentUser?.firstName} {currentUser?.lastName}
             </span>

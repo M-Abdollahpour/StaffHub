@@ -14,7 +14,6 @@ import {
   Modal,
   DatePicker,
 } from "antd";
-import { updateEmployees } from "../../mocks/api/updateEmployees";
 import type { Language, Gender, MaritalStatus } from "~/types/employeeType";
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 type OnSave = {
@@ -23,6 +22,7 @@ type OnSave = {
 };
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import { useEmployeesStore } from "~/stores/useEmployeesStore";
 
 dayjs.extend(customParseFormat);
 
@@ -47,6 +47,7 @@ const ProfileEdit = ({ onSave, onCancel }: OnSave) => {
   const updateCurrentUserStore = useAuthStore(
     (state) => state.updateCurrentUser,
   );
+  const updateEmployees = useEmployeesStore((state) => state.updateEmployee);
   const schema = yup.object({
     firstName: yup.string().required().min(3),
     lastName: yup.string().required(),
@@ -205,7 +206,7 @@ const ProfileEdit = ({ onSave, onCancel }: OnSave) => {
       {contextHolder}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <div className="flex gap-2 md:gap-4 items-center">
+          <div className="flex flex-col gap-2 md:gap-4 items-center">
             <div>
               <Upload
                 name="avatar"

@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { employees } from "~/mocks/data/data";
 import type { Employee } from "~/types/employeeType";
+import { useEmployeesStore } from "./useEmployeesStore";
 
 type AuthState = {
   currentUser: Employee | null;
@@ -14,13 +14,17 @@ export const useAuthStore = create<AuthState>()(
     (set, get) => ({
       currentUser: null,
       updateCurrentUser: (employee) => {
-        set(() => ({
+        useEmployeesStore.getState().updateEmployee(employee);
+        set({
           currentUser: employee,
-        }));
+        });
       },
       login: (email, password) => {
+        const employees = useEmployeesStore.getState().employees;
         const findItem = employees.find(
-          (item) => item.email === email && item.password === password,
+          (item) =>
+            item.email.toLowerCase() === email.trim().toLowerCase() &&
+            item.password === password,
         );
         if (findItem) {
           set(() => ({ currentUser: findItem }));
