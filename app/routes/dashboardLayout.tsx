@@ -57,8 +57,8 @@ const DashboardLayout = () => {
     navigate(`/${info.key}`);
   };
   return (
-    <div className="min-h-screen">
-      <div className="grid grid-cols-[auto_1fr] grid-rows-[auto_1fr] min-h-screen">
+    <div className="min-h-dvh overflow-x-hidden">
+      <div className="grid min-h-dvh grid-cols-[auto_minmax(0,1fr)] grid-rows-[auto_minmax(0,1fr)]">
         <div
           className={`text-white/50 flex flex-col justify-between  items-center row-span-2 bg-[#000c18] ${isSiderOpen ? "w-52" : "w-20"} transition-all duration-200`}
         >
@@ -95,18 +95,19 @@ const DashboardLayout = () => {
             )}
           </div>
         </div>
-        <div className="flex items-center">
+        <div className="flex min-w-0 items-center overflow-hidden">
           <Button
             type="primary"
-            className="self-stretch! px-4! py-6! "
+            className="self-stretch! px-4! py-6!"
             onClick={toggleSider}
           >
             {isSiderOpen ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
           </Button>
-          header
+
+          <span className="truncate">header</span>
         </div>
-        <div className="bg-gray-200 p-6">
-          <div className="rounded-xl bg-white h-full relative p-4">
+        <div className="min-w-0 overflow-x-hidden bg-gray-200 p-2 sm:p-6">
+          <div className="relative h-full min-w-0 rounded-xl bg-white p-3 sm:p-4">
             <Outlet />
           </div>
         </div>
