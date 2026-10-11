@@ -86,7 +86,7 @@ const ProfileEdit = ({ onSave, onCancel }: OnSave) => {
         title: yup.string().required(),
         company: yup.string().required(),
         startDate: yup.number().required(),
-        endDate: yup.number().required(),
+        endDate: yup.number(),
         description: yup.string().required(),
       }),
     ),
@@ -206,7 +206,7 @@ const ProfileEdit = ({ onSave, onCancel }: OnSave) => {
       {contextHolder}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <div className="flex flex-col gap-2 md:gap-4 items-center">
+          <div className="flex flex-col items-center p-2 gap-2 md:p-0 md:gap-4 md:flex-row">
             <div>
               <Upload
                 name="avatar"
@@ -235,7 +235,7 @@ const ProfileEdit = ({ onSave, onCancel }: OnSave) => {
                 )}
               </Upload>
             </div>
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col justify-center items-center gap-1  md:justify-start md:items-start">
               <span className="font-bold">
                 {currentUser?.firstName} {currentUser?.lastName}
               </span>

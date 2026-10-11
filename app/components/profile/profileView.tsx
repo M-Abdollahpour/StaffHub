@@ -22,14 +22,15 @@ const ProfileView = ({ onEdit }: OnEdit) => {
     { label: "Gender", value: currentUser?.gender },
     { label: "Birthday", value: currentUser?.birthDate },
     { label: "Married", value: currentUser?.maritalStatus },
-    { label: "Language", value: currentUser?.language.join(" | ") },
+    { label: "Language", value: currentUser?.language?.join(" | ") },
     { label: "City", value: currentUser?.city },
     { label: "Address", value: currentUser?.address },
   ];
+  console.log(currentUser);
   return (
     <div className="container mx-auto">
       <div>
-        <div className="flex flex-col p-2 items-center gap-2  md:gap-4 md:flex-row">
+        <div className="flex flex-col p-2 items-center gap-2 md:p-0  md:gap-4 md:flex-row">
           <span>
             <Avatar size={100}>{currentUser?.firstName?.charAt(0)}</Avatar>
           </span>
@@ -45,7 +46,7 @@ const ProfileView = ({ onEdit }: OnEdit) => {
             Personal Information
           </div>
           <ul className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            {personalInfo.map((item) => (
+            {personalInfo?.map((item) => (
               <li key={item.label}>
                 <div>{item.label}</div>
                 <div className="bg-gray-100 rounded px-4 py-2 font-bold mt-2 h-10">
@@ -62,7 +63,7 @@ const ProfileView = ({ onEdit }: OnEdit) => {
           <div>
             <div>Education</div>
             <ul className="grid gap-4 mt-2">
-              {currentUser?.education.map((Item) => (
+              {currentUser?.education?.map((Item) => (
                 <li
                   key={Item.id}
                   className="bg-gray-100 rounded px-4 py-4 md:py-2"
@@ -72,7 +73,7 @@ const ProfileView = ({ onEdit }: OnEdit) => {
                   </div>
                   <div className="text-sm italic opacity-50">
                     {Item.university} <span className="not-italic">|</span>{" "}
-                    {Item.startYear} - {Item.endYear ?? "now"}
+                    {Item.startYear} - {Item.endYear ?? "Present"}
                   </div>
                 </li>
               ))}
@@ -81,7 +82,7 @@ const ProfileView = ({ onEdit }: OnEdit) => {
           <div>
             <div>Work Experience</div>
             <ul className="grid gap-4 mt-2">
-              {currentUser?.workExperience.map((Item) => (
+              {currentUser?.workExperience?.map((Item) => (
                 <li
                   key={Item.id}
                   className="bg-gray-100 rounded px-4 py-4 md:py-2"
@@ -102,7 +103,7 @@ const ProfileView = ({ onEdit }: OnEdit) => {
               <li>
                 <div>Skills</div>
                 <div className="bg-gray-100 rounded px-4 py-4 md:py-2 font-bold">
-                  {currentUser?.skills.join(" | ")}
+                  {currentUser?.skills?.join(" | ")}
                 </div>
               </li>
             </ul>
@@ -113,7 +114,7 @@ const ProfileView = ({ onEdit }: OnEdit) => {
             Organizational Info
           </div>
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-2">
-            {orgInfo.map((item) => (
+            {orgInfo?.map((item) => (
               <li key={item.label}>
                 <div>{item.label}</div>
                 <div className="bg-gray-100 rounded px-4 py-2 font-bold mt-2 h-10">

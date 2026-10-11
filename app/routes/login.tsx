@@ -101,7 +101,7 @@ const Login = () => {
                 </Button>
                 <div className="flex gap-2 text-sm">
                   <p className="opacity-50">Don't have an account?</p>
-                  <Link to={"/"}>Sign up for free</Link>
+                  <Link to="/signup">Sign up for free</Link>
                 </div>
               </div>
             </form>
