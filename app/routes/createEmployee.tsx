@@ -36,6 +36,7 @@ const CreateEmployee = () => {
       lastName: data.lastName,
       email: data.email,
       password: data.password,
+      role: "user",
     };
     addEmployee(newEmployee);
     navigate("/");
@@ -54,20 +55,19 @@ const CreateEmployee = () => {
   };
   return (
     <div className="min-h-dvh  bg-[url('/wall.jpg')] bg-cover bg-center bg-no-repeat bg-gray-100 flex items-center justify-center">
-      <div className="container mx-auto">
+      <div className="container mx-auto px-4">
         <div className="flex flex-col gap-4 justify-center items-center">
           <div className="flex flex-col gap-2 text-white/50 justify-center items-center">
             <h1 className="md:text-4xl text-3xl font-bold">Signup</h1>
             <p className="italic">TechNova</p>
           </div>
-
-          <div className="bg-white/20 text-white backdrop-blur-sm border px-6 py-8 rounded-lg md:mx-0 md:w-120">
+          <div className="bg-white/20 w-full text-white backdrop-blur-sm border px-6 py-8 rounded-lg md:mx-0 md:w-150">
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="flex gap-4 flex-col">
                 <div className="flex flex-col gap-4">
                   <div className="flex flex-col gap-1">
                     <input
-                      className="border rounded px-2 py-1"
+                      className="border rounded px-2 py-1 w-full"
                       {...register("firstName")}
                       placeholder="First name"
                     />
@@ -87,7 +87,7 @@ const CreateEmployee = () => {
                   </div>
                   <div className="flex flex-col gap-1">
                     <input
-                      className="border rounded px-2 py-1 "
+                      className="border rounded px-2 py-1 w-full"
                       {...register("email")}
                       type="email"
                       placeholder="Email"
@@ -98,7 +98,7 @@ const CreateEmployee = () => {
                   </div>
                   <div className="flex flex-col gap-1">
                     <input
-                      className="border rounded px-2 py-1 "
+                      className="border rounded px-2 py-1 w-full"
                       {...register("password")}
                       type="password"
                       placeholder="Password"
