@@ -57,11 +57,11 @@ const CreateEmployee = () => {
       <div className="container mx-auto">
         <div className="flex flex-col gap-4 justify-center items-center">
           <div className="flex flex-col gap-2 text-white/50 justify-center items-center">
-            <h1 className="text-4xl font-bold">Signup</h1>
+            <h1 className="md:text-4xl text-3xl font-bold">Signup</h1>
             <p className="italic">TechNova</p>
           </div>
 
-          <div className="bg-white/20 w-150 text-white backdrop-blur-sm border px-6 py-8 mx-6 rounded-lg md:mx-0">
+          <div className="bg-white/20 text-white backdrop-blur-sm border px-6 py-8 rounded-lg md:mx-0 md:w-120">
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="flex gap-4 flex-col">
                 <div className="flex flex-col gap-4">
@@ -77,7 +77,7 @@ const CreateEmployee = () => {
                   </div>
                   <div className="flex flex-col gap-1">
                     <input
-                      className="border rounded px-2 py-1 "
+                      className="border rounded px-2 py-1 w-full"
                       {...register("lastName")}
                       placeholder="Last name"
                     />
