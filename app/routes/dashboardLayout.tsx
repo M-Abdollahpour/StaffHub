@@ -34,13 +34,9 @@ const DashboardLayout = () => {
       adminOnly: true,
     },
   ];
-  const itemsProp = items.filter((item) => {
-    if (item.adminOnly) {
-      return currentUser?.role === "admin";
-    } else {
-      return true;
-    }
-  });
+  const itemsProp = items
+    .filter((item) => !item.adminOnly || currentUser?.role === "admin")
+    .map(({ adminOnly, ...menuItem }) => menuItem);
   const navigate = useNavigate();
 
   const toggleSider = () => {

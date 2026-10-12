@@ -26,7 +26,7 @@ const ProfileView = ({ onEdit }: OnEdit) => {
     { label: "City", value: currentUser?.city },
     { label: "Address", value: currentUser?.address },
   ];
-  console.log(currentUser);
+
   return (
     <div className="container mx-auto">
       <div>
@@ -45,7 +45,7 @@ const ProfileView = ({ onEdit }: OnEdit) => {
           <div className="absolute left-4 -top-3 bg-white font-bold">
             Personal Information
           </div>
-          <ul className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          <ul className="grid grid-cols-1 gap-2 md:gap-4 md:grid-cols-2">
             {personalInfo?.map((item) => (
               <li key={item.label}>
                 <div>{item.label}</div>
@@ -56,13 +56,13 @@ const ProfileView = ({ onEdit }: OnEdit) => {
             ))}
           </ul>
         </div>
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 border p-4 rounded-lg border-gray-400/40 relative">
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 border p-4 rounded-lg border-gray-400/40 relative">
           <div className="absolute left-4 -top-3 bg-white font-bold">
             Professional Background
           </div>
           <div>
             <div>Education</div>
-            <ul className="grid gap-4 mt-2">
+            <ul className="grid gap-2 md:gap-4 mt-2">
               {currentUser?.education?.map((Item) => (
                 <li
                   key={Item.id}
@@ -113,7 +113,7 @@ const ProfileView = ({ onEdit }: OnEdit) => {
           <div className="absolute left-4 -top-3 bg-white font-bold">
             Organizational Info
           </div>
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-2">
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 mt-2">
             {orgInfo?.map((item) => (
               <li key={item.label}>
                 <div>{item.label}</div>

@@ -1,6 +1,6 @@
-type Role = "user" | "admin";
+export type Role = "user" | "admin";
 export type Gender = "male" | "female";
-type Status = "active" | "inactive" | "onLeave";
+export type Status = "active" | "inactive" | "onLeave";
 export type MaritalStatus = "single" | "married";
 type Id = string;
 export type Language = "persian" | "english" | "french" | "spanish" | "italian";

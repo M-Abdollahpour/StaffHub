@@ -5,13 +5,15 @@ import * as yup from "yup";
 import { useNavigate } from "react-router";
 import { nanoid } from "nanoid";
 import type { Employee } from "~/types/employeeType";
-import { Button, Modal } from "antd";
+import { Button, Modal, message } from "antd";
 import { useState } from "react";
-
 const CreateEmployee = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
   const addEmployee = useEmployeesStore((state) => state.addEmployee);
+  const currentList = useEmployeesStore((state) => state.employees);
+  console.log(currentList);
   const navigate = useNavigate();
   type FormData = yup.InferType<typeof schema>;
   const schema = yup.object({
@@ -24,6 +26,7 @@ const CreateEmployee = () => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(schema),
@@ -38,8 +41,26 @@ const CreateEmployee = () => {
       password: data.password,
       role: "user",
     };
-    addEmployee(newEmployee);
-    navigate("/");
+    const exists = currentList.find(
+      (item) => item.email.toLowerCase() === data.email.toLowerCase(),
+    );
+    if (exists) {
+      setError("email", {
+        message: "This email is already registered",
+      });
+      messageApi.open({
+        type: "error",
+        content: "Found user",
+        duration: 3,
+      });
+      return;
+    }
+    setIsLoading(true);
+    setTimeout(() => {
+      addEmployee(newEmployee);
+      setIsLoading(false);
+      navigate("/");
+    }, 1000);
   };
   const onClick = () => {
     setIsModalOpen(true);
@@ -55,10 +76,11 @@ const CreateEmployee = () => {
   };
   return (
     <div className="min-h-dvh  bg-[url('/wall.jpg')] bg-cover bg-center bg-no-repeat bg-gray-100 flex items-center justify-center">
+      {contextHolder}
       <div className="container mx-auto px-4">
         <div className="flex flex-col gap-4 justify-center items-center">
           <div className="flex flex-col gap-2 text-white/50 justify-center items-center">
-            <h1 className="md:text-4xl text-3xl font-bold">Signup</h1>
+            <h1 className="md:text-4xl text-2xl font-bold">Signup</h1>
             <p className="italic">TechNova</p>
           </div>
           <div className="bg-white/20 w-full text-white backdrop-blur-sm border px-6 py-8 rounded-lg md:mx-0 md:w-150">
@@ -109,10 +131,15 @@ const CreateEmployee = () => {
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <Button disabled={isValid} onClick={onClick}>
+                  <Button disabled={isLoading} onClick={onClick}>
                     Cancel
                   </Button>
-                  <Button disabled={!isValid} htmlType="submit" type="primary">
+                  <Button
+                    disabled={!isValid}
+                    loading={isLoading}
+                    htmlType="submit"
+                    type="primary"
+                  >
                     Add
                   </Button>
                   <Modal

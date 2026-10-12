@@ -95,6 +95,7 @@ const ProfileEdit = ({ onSave, onCancel }: OnSave) => {
   const {
     register,
     handleSubmit,
+    setError,
     control,
     formState: { errors, isValid },
   } = useForm({
@@ -164,8 +165,20 @@ const ProfileEdit = ({ onSave, onCancel }: OnSave) => {
     { label: "Address", name: "address", value: currentUser?.address },
   ] as const;
   type FormData = yup.InferType<typeof schema>;
+  const currntItem = useEmployeesStore((state) => state.employees);
   const onSubmit = async (data: FormData) => {
     if (!currentUser) return;
+    const exist = currntItem.find(
+      (item) =>
+        item.id !== currentUser.id &&
+        item.email.toLowerCase() === data.email.toLowerCase(),
+    );
+    if (exist) {
+      setError("email", {
+        message: "This email is already registered",
+      });
+      return;
+    }
     setIsLoading(true);
     setTimeout(async () => {
       const updated = { ...currentUser, ...data };
