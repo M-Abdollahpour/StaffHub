@@ -6,12 +6,14 @@ const Dashboard = () => {
   const currentUser = useAuthStore((state) => state.currentUser);
 
   return (
-    <div>
-      {currentUser?.role === "admin" ? (
-        <AdminDashboardContent />
-      ) : (
-        <UserDashboardContent />
-      )}
+    <div className="container mx-auto px-4">
+      <div className="flex justify-center items-center">
+        {currentUser?.role === "admin" ? (
+          <AdminDashboardContent />
+        ) : (
+          <UserDashboardContent />
+        )}
+      </div>
     </div>
   );
 };

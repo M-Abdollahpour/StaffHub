@@ -110,7 +110,7 @@ const DashboardLayout = () => {
           <span className="truncate">header</span>
         </div>
         <div className="min-w-0 overflow-x-hidden bg-gray-200 p-2 sm:p-6">
-          <div className="relative h-full min-w-0 rounded-xl bg-white p-3 sm:p-4">
+          <div className="relative h-full px-4 md:px-0 min-w-0 rounded-xl bg-white p-3 sm:p-4">
             <Outlet />
           </div>
         </div>
