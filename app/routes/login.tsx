@@ -15,7 +15,12 @@ const Login = () => {
   const navigate = useNavigate();
   const logIn = useAuthStore((state) => state.login);
   const schema = yup.object({
-    email: yup.string().required().trim().email("invalid email format"),
+    email: yup
+      .string()
+      .required()
+      .trim()
+      .email("invalid email format")
+      .uppercase(),
     password: yup.string().required().trim().min(4, "at least 4 characters"),
   });
   const {

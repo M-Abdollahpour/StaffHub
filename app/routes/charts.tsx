@@ -32,7 +32,6 @@ const Charts = () => {
     (max, cur) => (cur.count > max.count ? cur : max),
     countPosition[0],
   );
-  console.log(topPosition);
   const [state, setState] = useState({
     series: [
       {
@@ -158,7 +157,7 @@ const Charts = () => {
     },
   });
   return (
-    <div className="container mx-auto px-4 md:px-0">
+    <div className="container mx-auto md:px-4">
       <div className="flex flex-col gap-2">
         <div className="border-gray-400/40 border rounded-lg p-4">
           <ReactApexChart
