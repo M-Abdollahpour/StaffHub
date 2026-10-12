@@ -1,10 +1,13 @@
-import { Button, Select, Modal } from "antd";
+import { Button, Select, Modal, DatePicker } from "antd";
 import { useEmployeesStore } from "~/stores/useEmployeesStore";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import type { Role, Status } from "~/types/employeeType";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(customParseFormat);
 type OnSave = {
   id: string;
   onSave: () => void;
@@ -85,45 +88,65 @@ const EmployeeEdit = ({ onSave, id, onCancel }: OnSave) => {
               </div>
               <div>
                 <span>Name</span>
-                <div className="bg-gray-100 rounded p-2">
+                <div
+                  className={`${!findUser?.firstName ? "bg-gray-100 h-10 rounded p-2" : "bg-gray-100 rounded p-2"}`}
+                >
                   {findUser?.firstName}
                 </div>
               </div>
               <div>
                 <span>Last Name</span>
-                <div className="bg-gray-100 rounded p-2">
+                <div
+                  className={`${!findUser?.lastName ? "bg-gray-100 h-10 rounded p-2" : "bg-gray-100 rounded p-2"}`}
+                >
                   {findUser?.lastName}
                 </div>
               </div>
               <div>
                 <span>Phone</span>
-                <div className="bg-gray-100 rounded p-2">{findUser?.phone}</div>
+                <div
+                  className={`${!findUser?.phone ? "bg-gray-100 h-10 rounded p-2" : "bg-gray-100 rounded p-2"}`}
+                >
+                  {findUser?.phone}
+                </div>
               </div>
               <div>
                 <span>Email</span>
-                <div className="bg-gray-100 rounded p-2">{findUser?.email}</div>
+                <div
+                  className={`${!findUser?.email ? "bg-gray-100 h-10 rounded p-2" : "bg-gray-100 rounded p-2"}`}
+                >
+                  {findUser?.email}
+                </div>
               </div>
               <div>
                 <span>Gender</span>
-                <div className="bg-gray-100 rounded p-2">
+                <div
+                  className={`${!findUser?.gender ? "bg-gray-100 h-10 rounded p-2" : "bg-gray-100 rounded p-2"}`}
+                >
                   {findUser?.gender}
                 </div>
               </div>
               <div>
                 <span>BirthDate</span>
-                <div className="bg-gray-100 rounded p-2">
+                <div
+                  className={`${!findUser?.birthDate ? "bg-gray-100 h-10 rounded p-2" : "bg-gray-100 rounded p-2"}`}
+                >
                   {findUser?.birthDate}
                 </div>
               </div>
               <div>
                 <span>Married</span>
-                <div className="bg-gray-100 rounded p-2">
+                <div
+                  className={`${!findUser?.maritalStatus ? "bg-gray-100 h-10 rounded p-2" : "bg-gray-100 rounded p-2"}`}
+                >
                   {findUser?.maritalStatus}
                 </div>
               </div>
               <div>
                 <span>language</span>
-                <div className="bg-gray-100 rounded p-2">
+                <div
+                  className={`${!findUser?.language ? "bg-gray-100 h-10 rounded p-2" : "bg-gray-100 rounded p-2"}`}
+                >
                   {findUser?.language?.join(" | ")}
                 </div>
               </div>
@@ -137,15 +160,18 @@ const EmployeeEdit = ({ onSave, id, onCancel }: OnSave) => {
               </div>
               <div>
                 <span>City</span>
-                <div className="bg-gray-100 rounded p-2">{findUser?.city}</div>
+                <div
+                  className={`${!findUser?.city ? "bg-gray-100 h-10 rounded p-2" : "bg-gray-100 rounded p-2"}`}
+                >
+                  {findUser?.city}
+                </div>
               </div>
             </div>
-
-            <div className="grid grid-cols-1 gap-2 md:gap-4 md:grid-cols-2 mt-8 border p-4 rounded-lg border-gray-400/40 relative">
+            <div className="grid grid-cols-1 gap-2 md:gap-2 md:grid-cols-2 mt-8 border p-4 rounded-lg border-gray-400/40 relative">
               <div className="absolute left-4 -top-3 bg-white font-bold">
                 Organizational Info
               </div>
-              <div>
+              <div className="flex flex-col gap-1">
                 <span>Role</span>
                 <Controller
                   name="role"
@@ -164,7 +190,7 @@ const EmployeeEdit = ({ onSave, id, onCancel }: OnSave) => {
                   {errors.role?.message}
                 </span>
               </div>
-              <div>
+              <div className="flex flex-col gap-1">
                 <span>Status</span>
                 <Controller
                   name="status"
@@ -183,7 +209,7 @@ const EmployeeEdit = ({ onSave, id, onCancel }: OnSave) => {
                   {errors.status?.message}
                 </span>
               </div>
-              <div>
+              <div className="flex flex-col gap-1">
                 <span>Department</span>
                 <div className="bg-gray-100 rounded p-2">
                   <input
@@ -195,7 +221,7 @@ const EmployeeEdit = ({ onSave, id, onCancel }: OnSave) => {
                   {errors.department?.message}
                 </span>
               </div>
-              <div>
+              <div className="flex flex-col gap-1">
                 <span>Position</span>
                 <div className="bg-gray-100 rounded p-2">
                   <input
@@ -207,12 +233,24 @@ const EmployeeEdit = ({ onSave, id, onCancel }: OnSave) => {
                   {errors.position?.message}
                 </span>
               </div>
-              <div>
+              <div className="flex flex-col gap-1">
                 <span>HireDate</span>
                 <div className="bg-gray-100 rounded p-2">
-                  <input
-                    {...register("hireDate")}
-                    className="border rounded px-4 py-1 h-10 w-full"
+                  <Controller
+                    name="hireDate"
+                    control={control}
+                    render={({ field }) => (
+                      <DatePicker
+                        picker="year"
+                        value={
+                          field.value ? dayjs().year(field.value) : undefined
+                        }
+                        onChange={(date) =>
+                          field.onChange(date ? date.year() : undefined)
+                        }
+                        className="w-full! border-black! shadow-none! rounded! focus-within:border-2! focus-within:border-blue-500! h-10! bg-gray-100!"
+                      />
+                    )}
                   />
                 </div>
                 <span className="text-sm text-red-600 h-2">

@@ -5,6 +5,7 @@ import { useNavigate, Outlet, useLocation } from "react-router";
 import { Spin, Menu, Button } from "antd";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
+import { FaChartPie } from "react-icons/fa";
 import {
   LoadingOutlined,
   DesktopOutlined,
@@ -31,6 +32,12 @@ const DashboardLayout = () => {
       key: "employees",
       icon: <DesktopOutlined />,
       label: "Employees",
+      adminOnly: true,
+    },
+    {
+      key: "charts",
+      icon: <FaChartPie />,
+      label: "Charts",
       adminOnly: true,
     },
   ];
