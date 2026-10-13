@@ -15,6 +15,7 @@
     "@react-router/node": "^8",
     "@react-router/serve": "^8",
     "antd": "^6.6.2",
+    "apexcharts": "^8.1.0",
     "blobatar": "^2.7.0",
     "dayjs": "^1.11.23",
     "isbot": "^5.1.36",
