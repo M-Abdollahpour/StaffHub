@@ -93,8 +93,13 @@ const Login = () => {
                       {isVisible ? <EyeOutlined /> : <EyeInvisibleOutlined />}
                     </button>
                   </div>
-                  <div className="text-sm text-red-600 min-h-5">
-                    {errors.password?.message}
+                  <div className="flex gap-2 justify-between items-center">
+                    <div className="text-sm text-red-600 min-h-5">
+                      {errors.password?.message}
+                    </div>
+                    <div className="flex gap-2 text-sm">
+                      <Link to="/forgotpassword">Forgot password?</Link>
+                    </div>
                   </div>
                 </div>
                 <Button

@@ -13,7 +13,6 @@ const CreateEmployee = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const addEmployee = useEmployeesStore((state) => state.addEmployee);
   const currentList = useEmployeesStore((state) => state.employees);
-  console.log(currentList);
   const navigate = useNavigate();
   type FormData = yup.InferType<typeof schema>;
   const schema = yup.object({
