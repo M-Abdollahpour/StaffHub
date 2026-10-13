@@ -24,8 +24,8 @@ const EmployeeEdit = ({ onSave, id, onCancel }: OnSave) => {
       .mixed<Status>()
       .oneOf(["active", "inactive", "onLeave"])
       .required(),
-    department: yup.string().required(),
-    position: yup.string().required(),
+    department: yup.string().required().trim(),
+    position: yup.string().required().trim(),
     hireDate: yup.number().required(),
   });
   const {

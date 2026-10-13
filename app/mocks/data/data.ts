@@ -10,7 +10,7 @@ export const employees: Employee[] = [
     phone: "+49 259 320 6514",
     email: "james.lewis0@technova.dev",
     department: "product",
-    role: "user",
+    role: "admin",
     status: "active",
     position: "Product Manager",
     gender: "male",

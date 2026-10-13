@@ -63,7 +63,7 @@ const DashboardLayout = () => {
     <div className="min-h-dvh overflow-x-hidden">
       <div className="grid min-h-dvh grid-cols-[auto_minmax(0,1fr)] grid-rows-[auto_minmax(0,1fr)]">
         <div
-          className={`text-white/50 flex flex-col justify-between  items-center row-span-2 bg-[#000c18] ${isSiderOpen ? "w-52" : "w-20"} transition-all duration-200`}
+          className={`text-white/50 relative overflow-hidden flex flex-col justify-between items-center row-span-2 bg-[#000c18] ${isSiderOpen ? "w-52" : "w-20"} transition-all duration-200`}
         >
           <div>
             <div
@@ -72,7 +72,9 @@ const DashboardLayout = () => {
               Hi, {currentUser?.firstName}
             </div>
           </div>
-          <div className="w-full">
+          <div
+            className={`fixed left-0 top-1/2 ${isSiderOpen ? "w-52" : "w-20"}`}
+          >
             <Menu
               mode="inline"
               theme="dark"
@@ -98,7 +100,7 @@ const DashboardLayout = () => {
             )}
           </div>
         </div>
-        <div className="flex min-w-0 items-center overflow-hidden">
+        <div className="flex bg-white min-w-0 items-center overflow-hidden">
           <Button
             type="primary"
             className="self-stretch! px-4! py-6!"
@@ -106,8 +108,15 @@ const DashboardLayout = () => {
           >
             {isSiderOpen ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
           </Button>
-
-          <span className="truncate">header</span>
+          {/* <span className="fixed z-10">
+            <Menu
+              multiple={true}
+              theme="dark"
+              mode="horizontal"
+              items={itemsProp}
+              onClick={handleMenuClick}
+            />
+          </span> */}
         </div>
         <div className="min-w-0 overflow-x-hidden bg-gray-200 p-2 sm:p-6">
           <div className="relative h-full px-4 md:px-0 min-w-0 rounded-xl bg-white p-3 sm:p-4">

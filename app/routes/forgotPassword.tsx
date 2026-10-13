@@ -19,13 +19,31 @@ const ForgotPassword = () => {
       .string()
       .trim()
       .email("Invalid email format")
-      .required("Email is required"),
-    password: yup.string().trim().required().min(4),
+      .required("Email is required")
+      .matches(
+        /(?:[a-z0-9!#$%&'*+\x2f=?^_`\x7b-\x7d~\x2d]+(?:\.[a-z0-9!#$%&'*+\x2f=?^_`\x7b-\x7d~\x2d]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9\x2d]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9\x2d]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9\x2d]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
+      ),
+    password: yup
+      .string()
+      .trim()
+      .required()
+      .min(8, "at least 8 characters")
+      .matches(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+        {
+          message:
+            "Password must include uppercase and lowercase letters, a number, and a special character",
+        },
+      ),
     confirmPassword: yup
       .string()
       .trim()
       .required("Please confirm your password")
-      .oneOf([yup.ref("password")], "Passwords do not match"),
+      .oneOf([yup.ref("password")], "Passwords do not match")
+      .min(8, "at least 8 characters")
+      .matches(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+      ),
   });
   const {
     register,
@@ -72,10 +90,11 @@ const ForgotPassword = () => {
                 <div className="flex flex-col gap-1">
                   <div>Email</div>
                   <input
+                    placeholder="test@gmail.com"
                     className="border rounded  px-4 py-1 h-10 w-full"
                     {...register("email")}
                   />
-                  <span className="text-sm text-red-600 min-h-5">
+                  <span className="text-sm text-red-600 min-h-10">
                     {errors.email?.message}
                   </span>
                 </div>
@@ -83,6 +102,7 @@ const ForgotPassword = () => {
                   <div>New password</div>
                   <div className="relative">
                     <input
+                      placeholder="password"
                       {...register("password")}
                       className="border rounded pr-10 px-4 py-1 h-10 w-full"
                       type={!isVisit ? "password" : "text"}
@@ -95,7 +115,7 @@ const ForgotPassword = () => {
                       {isVisit ? <EyeOutlined /> : <EyeInvisibleOutlined />}
                     </button>
                   </div>
-                  <span className="text-sm text-red-600 min-h-5">
+                  <span className="text-sm text-red-600 min-h-10">
                     {errors.password?.message}
                   </span>
                 </div>
@@ -103,6 +123,7 @@ const ForgotPassword = () => {
                   <div>Confirm password</div>
                   <div className="relative">
                     <input
+                      placeholder="confirm password"
                       {...register("confirmPassword")}
                       className="border rounded pr-10 px-4 py-1 h-10 w-full"
                       type={!isVisitTwo ? "password" : "text"}
@@ -116,7 +137,7 @@ const ForgotPassword = () => {
                     </button>
                   </div>
 
-                  <span className="text-sm text-red-600 min-h-5">
+                  <span className="text-sm text-red-600 min-h-10">
                     {errors.confirmPassword?.message}
                   </span>
                 </div>

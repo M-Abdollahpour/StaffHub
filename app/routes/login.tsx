@@ -20,7 +20,7 @@ const Login = () => {
       .required()
       .trim()
       .email("invalid email format")
-      .uppercase(),
+      .lowercase(),
     password: yup.string().required().trim().min(4, "at least 4 characters"),
   });
   const {
