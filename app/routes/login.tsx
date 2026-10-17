@@ -17,17 +17,21 @@ const Login = () => {
   const schema = yup.object({
     email: yup
       .string()
-      .required()
+      .required("Email is a required field")
       .trim()
-      .email("invalid email format")
+      .email("Invalid email format")
       .lowercase(),
-    password: yup.string().required().trim().min(4, "at least 4 characters"),
+    password: yup
+      .string()
+      .required("Password is a required field")
+      .trim()
+      .min(8, "At least 8 characters"),
   });
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm({ resolver: yupResolver(schema), mode: "onChange" });
   const [isVisible, setIsVisible] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -53,36 +57,40 @@ const Login = () => {
   return (
     <div>
       {contextHolder}
-      <div className="flex min-h-dvh flex-col bg-[url('/wall.jpg')] bg-cover bg-center bg-no-repeat md:flex-row">
-        <div className="hidden w-1/2 flex-col items-center justify-center gap-4 text-white/50 md:flex">
+      <div className="flex text-black/80  min-h-dvh flex-col bg-[url('/wall.jpg')] bg-cover bg-center bg-no-repeat md:flex-row">
+        <div className="hidden w-1/2 flex-col items-center justify-center gap-4 md:flex">
           <h1 className="text-4xl font-bold">LOGIN</h1>
           <p className="italic">TechNova</p>
         </div>
-        <div className="flex min-h-screen w-full flex-col items-center justify-center bg-white/10 px-4 py-8 text-white backdrop-blur-sm md:w-1/2 md:px-8">
-          <div className="flex gap-2 flex-col text-white/50 justify-center items-center mb-5 md:hidden">
-            <h1 className="text-2xl font-bold">LOGIN</h1>
-            <p className="italic">TechNova</p>
-          </div>
-          <div className="flex w-full max-w-md items-center justify-center rounded-2xl border-4 border-double border-white px-5 py-10 sm:px-10 sm:py-16 md:py-20">
+        <div className="flex min-h-screen w-full flex-col items-center justify-center bg-white/40 px-4 py-8 backdrop-blur-sm md:w-1/2 md:px-8">
+          <div className="flex w-full max-w-md items-center bg-white justify-center rounded-2xl border border-gray-500/50 py-10 px-5 md:py-20 md:px-10">
             <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-              <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-8">
+                <div className="flex gap-2 flex-col justify-center items-center">
+                  <h1 className="text-2xl md:text-3xl text-blue-600 font-bold">
+                    Login here
+                  </h1>
+                  <p className="italic">Welcome back</p>
+                </div>
                 <div className="flex flex-col gap-1">
+                  <div>Email</div>
                   <input
-                    placeholder="email(ex:test@gmail.com)"
+                    placeholder="Email(ex:test@gmail.com)"
                     type="text"
                     {...register("email")}
-                    className={`p-2 pr-10 border w-full rounded-lg ${errors.email ? "border-red-500 shadow-lg" : "border-white shadow-lg"}`}
+                    className={`p-2 pr-10 border w-full rounded-lg ${errors.email ? "border-red-500 shadow-lg" : "shadow-lg"}`}
                   />
                   <div className="text-sm text-red-600 min-h-5">
                     {errors.email?.message}
                   </div>
                 </div>
                 <div className="flex flex-col gap-1">
+                  <div>Password</div>
                   <div className="relative">
                     <input
-                      placeholder="password"
+                      placeholder="Password"
                       {...register("password")}
-                      className={`p-2 pr-10 border w-full rounded-lg ${errors.password ? "border-red-500 shadow-lg" : "border-white shadow-lg"}`}
+                      className={`p-2 pr-10 border w-full rounded-lg ${errors.password ? "border-red-500 shadow-lg" : "shadow-lg"}`}
                       type={!isVisible ? "password" : "text"}
                     />
                     <button
@@ -97,21 +105,28 @@ const Login = () => {
                     <div className="text-sm text-red-600 min-h-5">
                       {errors.password?.message}
                     </div>
-                    <div className="flex gap-2 text-sm">
+                    <div className=" text-blue-600 text-sm">
                       <Link to="/forgotpassword">Forgot password?</Link>
                     </div>
                   </div>
                 </div>
+
                 <Button
-                  disabled={!isValid || loading}
+                  className="py-5!"
+                  loading={loading}
                   type="primary"
                   htmlType="submit"
                 >
                   {loading ? "Logging in..." : "Login"}
                 </Button>
-                <div className="flex gap-2 text-sm">
+                <div className="flex items-center gap-3 text-gray-500 before:h-px before:flex-1 before:bg-gray-300 after:h-px after:flex-1 after:bg-gray-300">
+                  OR
+                </div>
+                <div className="flex justify-center gap-2 text-sm">
                   <p className="opacity-50">Don't have an account?</p>
-                  <Link to="/signup">Sign up for free</Link>
+                  <Link to="/signup" className="text-blue-600">
+                    Sign up for free
+                  </Link>
                 </div>
               </div>
             </form>

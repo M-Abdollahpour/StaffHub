@@ -26,8 +26,8 @@ const ForgotPassword = () => {
     password: yup
       .string()
       .trim()
-      .required()
-      .min(8, "at least 8 characters")
+      .required("Password is a required field")
+      .min(8, "At least 8 characters")
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
         {
@@ -38,9 +38,9 @@ const ForgotPassword = () => {
     confirmPassword: yup
       .string()
       .trim()
-      .required("Please confirm your password")
+      .required("Confirm password is a required field")
       .oneOf([yup.ref("password")], "Passwords do not match")
-      .min(8, "at least 8 characters")
+      .min(8, "At least 8 characters")
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
       ),
@@ -49,7 +49,7 @@ const ForgotPassword = () => {
     register,
     handleSubmit,
     setError,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm({ resolver: yupResolver(schema), mode: "onChange" });
   type FormData = yup.InferType<typeof schema>;
   const onSubmit = (data: FormData) => {
@@ -80,31 +80,33 @@ const ForgotPassword = () => {
       <div className="container mx-auto px-4 md:px-0 md:w-150">
         {contextHolder}
         <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2 justify-center items-center text-white/50">
-            <h1 className="md:text-3xl text-2xl font-bold">Forgot Password</h1>
-            <p className="italic">TechNova</p>
-          </div>
-          <div className="text-white bg-white/10 rounded-lg backdrop-blur-sm">
+          <div className="bg-white rounded-lg backdrop-blur-sm">
             <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="border border-gray-500/50 p-8 rounded-lg">
-                <div className="flex flex-col gap-1">
+              <div className="border border-gray-500/50 py-10 px-5 md:py-20 md:px-10 rounded-lg flex flex-col gap-8">
+                <div className="flex flex-col gap-2 justify-center items-center text-blue-600">
+                  <h1 className="text-2xl md:text-3xl text-blue-600 font-bold">
+                    Forgot Password
+                  </h1>
+                  <p className="italic">TechNova</p>
+                </div>
+                <div className="flex flex-col gap-1 text-sm md:text-base">
                   <div>Email</div>
                   <input
-                    placeholder="test@gmail.com"
-                    className="border rounded  px-4 py-1 h-10 w-full"
+                    placeholder="Email(ex:test@gmail.com)"
+                    className="border rounded-lg  px-4 py-1 h-10 w-full"
                     {...register("email")}
                   />
-                  <span className="text-sm text-red-600 min-h-10">
+                  <span className="text-sm text-red-600 min-h-5">
                     {errors.email?.message}
                   </span>
                 </div>
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-1 text-sm md:text-base">
                   <div>New password</div>
                   <div className="relative">
                     <input
-                      placeholder="password"
+                      placeholder="Password"
                       {...register("password")}
-                      className="border rounded pr-10 px-4 py-1 h-10 w-full"
+                      className="border rounded-lg pr-10 px-4 py-1 h-10 w-full"
                       type={!isVisit ? "password" : "text"}
                     />
                     <button
@@ -115,17 +117,17 @@ const ForgotPassword = () => {
                       {isVisit ? <EyeOutlined /> : <EyeInvisibleOutlined />}
                     </button>
                   </div>
-                  <span className="text-sm text-red-600 min-h-10">
+                  <span className="text-sm text-red-600 min-h-5">
                     {errors.password?.message}
                   </span>
                 </div>
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-1 text-sm md:text-base">
                   <div>Confirm password</div>
                   <div className="relative">
                     <input
-                      placeholder="confirm password"
+                      placeholder="Confirm password"
                       {...register("confirmPassword")}
-                      className="border rounded pr-10 px-4 py-1 h-10 w-full"
+                      className="border rounded-lg pr-10 px-4 py-1 h-10 w-full"
                       type={!isVisitTwo ? "password" : "text"}
                     />
                     <button
@@ -136,28 +138,25 @@ const ForgotPassword = () => {
                       {isVisitTwo ? <EyeOutlined /> : <EyeInvisibleOutlined />}
                     </button>
                   </div>
-
-                  <span className="text-sm text-red-600 min-h-10">
+                  <span className="text-sm text-red-600 min-h-5">
                     {errors.confirmPassword?.message}
                   </span>
                 </div>
-                <div className="flex gap-2 mt-5">
-                  <Button
-                    disabled={isLoading}
-                    htmlType="button"
-                    onClick={onClick}
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    loading={isLoading}
-                    disabled={!isValid}
-                    htmlType="submit"
-                    type="primary"
-                  >
-                    Reset
-                  </Button>
-                </div>
+                <Button
+                  className="py-5! text-base! md:text-lg!"
+                  loading={isLoading}
+                  htmlType="submit"
+                  type="primary"
+                >
+                  Reset
+                </Button>
+                <Button
+                  disabled={isLoading}
+                  htmlType="button"
+                  onClick={onClick}
+                >
+                  Cancel
+                </Button>
               </div>
             </form>
           </div>

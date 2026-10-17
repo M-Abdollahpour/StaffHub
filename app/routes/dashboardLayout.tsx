@@ -73,7 +73,7 @@ const DashboardLayout = () => {
             </div>
           </div>
           <div
-            className={`fixed left-0 top-1/2 ${isSiderOpen ? "w-52" : "w-20"}`}
+            className={`fixed left-0 top-1/2 -translate-y-1/2 ${isSiderOpen ? "w-52" : "w-20"}`}
           >
             <Menu
               mode="inline"
