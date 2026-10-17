@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, message } from "antd";
+import { Badge, Button, message, Space } from "antd";
 import { useEmployeesStore } from "~/stores/useEmployeesStore";
 import { useNavigate } from "react-router";
 import { useState } from "react";
@@ -31,8 +31,7 @@ const ForgotPassword = () => {
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
         {
-          message:
-            "Password must include uppercase and lowercase letters, a number, and a special character",
+          message: "Please match to roles",
         },
       ),
     confirmPassword: yup
@@ -141,7 +140,19 @@ const ForgotPassword = () => {
                   <span className="text-sm text-red-600 min-h-5">
                     {errors.confirmPassword?.message}
                   </span>
+                  <span>
+                    <Space vertical>
+                      <Badge status="default" text="8 characters or more" />
+                      <Badge
+                        status="default"
+                        text="A mixed of uppercase and lowercase letters"
+                      />
+                      <Badge status="default" text="At least one number" />
+                      <Badge status="default" text="At least one symbol" />
+                    </Space>
+                  </span>
                 </div>
+
                 <Button
                   className="py-5! text-base! md:text-lg!"
                   loading={isLoading}
