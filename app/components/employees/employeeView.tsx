@@ -173,7 +173,7 @@ const EmployeeView = ({ onEdit }: OnEdit) => {
   ];
 
   return (
-    <div>
+    <div className="text-black">
       <Table<Employee>
         rowKey="id"
         columns={columns}

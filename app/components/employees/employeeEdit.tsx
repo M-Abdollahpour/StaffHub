@@ -79,7 +79,7 @@ const EmployeeEdit = ({ onSave, id, onCancel }: OnSave) => {
   };
   return (
     <div className="min-h-svh">
-      <div className="container mx-auto">
+      <div className="container text-black mx-auto">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-2">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border rounded-lg border-gray-400/40 p-4 mt-4 relative">

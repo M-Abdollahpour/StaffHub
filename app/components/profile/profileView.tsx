@@ -28,7 +28,7 @@ const ProfileView = ({ onEdit }: OnEdit) => {
   ];
 
   return (
-    <div className="container mx-auto">
+    <div className="container text-black mx-auto">
       <div>
         <div className="flex flex-col p-2 items-center gap-2 md:p-0  md:gap-4 md:flex-row">
           <span>

@@ -222,7 +222,7 @@ const ProfileEdit = ({ onSave, onCancel }: OnSave) => {
     setIsModalOpen(false);
   };
   return (
-    <div className="container mx-auto">
+    <div className="container text-black mx-auto">
       {contextHolder}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
