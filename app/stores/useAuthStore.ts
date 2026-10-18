@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { Employee } from "~/types/employeeType";
 import { useEmployeesStore } from "./useEmployeesStore";
+import { useTimerStore } from "./useTimerStore";
 
 type AuthState = {
   currentUser: Employee | null;
@@ -34,6 +35,7 @@ export const useAuthStore = create<AuthState>()(
       },
       logout: () => {
         set(() => ({ currentUser: null }));
+        useTimerStore.getState().reset();
       },
     }),
     { name: "auth" },

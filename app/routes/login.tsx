@@ -7,6 +7,8 @@ import { Button } from "antd";
 import { useState } from "react";
 import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 import { message } from "antd";
+import { useTimerStore } from "~/stores/useTimerStore";
+
 type Submit = {
   email: string;
   password: string;
@@ -14,6 +16,7 @@ type Submit = {
 const Login = () => {
   const navigate = useNavigate();
   const logIn = useAuthStore((state) => state.login);
+  const startTimer = useTimerStore((state) => state.start);
   const schema = yup.object({
     email: yup
       .string()
@@ -40,6 +43,7 @@ const Login = () => {
     setLoading(true);
     const success = logIn(data.email, data.password);
     if (success) {
+      startTimer(600);
       navigate("/dashboard");
     } else {
       messageApi.open({
@@ -54,6 +58,7 @@ const Login = () => {
   const togglePass = () => {
     setIsVisible((prev) => !prev);
   };
+
   return (
     <div>
       {contextHolder}
@@ -110,7 +115,6 @@ const Login = () => {
                     </div>
                   </div>
                 </div>
-
                 <Button
                   className="py-5!"
                   loading={loading}
