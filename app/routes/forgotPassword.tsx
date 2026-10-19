@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Badge, Button, message, Space } from "antd";
+import { Button, message } from "antd";
 import { useEmployeesStore } from "~/stores/useEmployeesStore";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
+import ValidRolePassword from "~/components/validRolePassword/validRolePassword";
 const ForgotPassword = () => {
   const allUser = useEmployeesStore((state) => state.employees);
   const updateEmployees = useEmployeesStore((state) => state.updateEmployee);
@@ -29,7 +30,7 @@ const ForgotPassword = () => {
       .required("Password is a required field")
       .min(8, "At least 8 characters")
       .matches(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&_-])[A-Za-z\d@$!%*#?&_-]{8,}$/,
         {
           message: "Please match to roles",
         },
@@ -41,13 +42,14 @@ const ForgotPassword = () => {
       .oneOf([yup.ref("password")], "Passwords do not match")
       .min(8, "At least 8 characters")
       .matches(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&_-])[A-Za-z\d@$!%*#?&_-]{8,}$/,
       ),
   });
   const {
     register,
     handleSubmit,
     setError,
+    watch,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema), mode: "onChange" });
   type FormData = yup.InferType<typeof schema>;
@@ -140,19 +142,8 @@ const ForgotPassword = () => {
                   <span className="text-sm text-red-600 min-h-5">
                     {errors.confirmPassword?.message}
                   </span>
-                  <span>
-                    <Space vertical>
-                      <Badge status="default" text="8 characters or more" />
-                      <Badge
-                        status="default"
-                        text="A mixed of uppercase and lowercase letters"
-                      />
-                      <Badge status="default" text="At least one number" />
-                      <Badge status="default" text="At least one symbol" />
-                    </Space>
-                  </span>
+                  <ValidRolePassword password={watch("password") ?? ""} />
                 </div>
-
                 <Button
                   className="py-5! text-base! md:text-lg!"
                   loading={isLoading}

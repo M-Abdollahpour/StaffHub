@@ -5,9 +5,10 @@ import * as yup from "yup";
 import { Link, useNavigate } from "react-router";
 import { nanoid } from "nanoid";
 import type { Employee } from "~/types/employeeType";
-import { Badge, Button, message, Space } from "antd";
+import { Button, message } from "antd";
 import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 import { useState } from "react";
+import ValidRolePassword from "~/components/validRolePassword/validRolePassword";
 const CreateEmployee = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -35,7 +36,7 @@ const CreateEmployee = () => {
       .required("Password is a required field")
       .min(8, "At least 8 characters")
       .matches(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&_-])[A-Za-z\d@$!%*#?&_-]{8,}$/,
         { message: "Please match to roles" },
       ),
   });
@@ -43,6 +44,7 @@ const CreateEmployee = () => {
     register,
     handleSubmit,
     reset,
+    watch,
     setError,
     formState: { errors, isValid },
   } = useForm({
@@ -152,17 +154,7 @@ const CreateEmployee = () => {
                     <p className="text-xs md:text-sm text-red-600 min-h-5">
                       {errors.password?.message}
                     </p>
-                    <span>
-                      <Space vertical>
-                        <Badge status="default" text="8 characters or more" />
-                        <Badge
-                          status="default"
-                          text="A mixed of uppercase and lowercase letters"
-                        />
-                        <Badge status="default" text="At least one number" />
-                        <Badge status="default" text="At least one symbol" />
-                      </Space>
-                    </span>
+                    <ValidRolePassword password={watch("password") ?? ""} />
                   </div>
                 </div>
                 <div className="flex flex-col gap-8">
