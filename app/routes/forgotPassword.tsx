@@ -75,14 +75,14 @@ const ForgotPassword = () => {
     setIsVisitTwo((prev) => !prev);
   };
   return (
-    <div className="min-h-svh flex justify-center items-center bg-gray-100 bg-[url('/wall.jpg')] bg-cover bg-center bg-no-repeat">
+    <div className="min-h-svh text-black flex justify-center items-center bg-gray-100 bg-[url('/wall.jpg')] bg-cover bg-center bg-no-repeat">
       <div className="container mx-auto px-4 md:px-0 md:w-150">
         {contextHolder}
         <div className="flex flex-col gap-4">
           <div className="bg-white rounded-lg backdrop-blur-sm">
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="border border-gray-500/50 py-10 px-5 md:py-20 md:px-10 rounded-lg flex flex-col gap-8">
-                <div className="flex flex-col gap-2 justify-center items-center text-blue-600">
+                <div className="flex flex-col gap-2 justify-center items-center">
                   <h1 className="text-2xl md:text-3xl text-blue-600 font-bold">
                     Forgot Password
                   </h1>

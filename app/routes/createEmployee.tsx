@@ -175,7 +175,7 @@ const CreateEmployee = () => {
                     Create Account
                   </Button>
                   <div className="flex justify-center gap-0.5 md:gap-2">
-                    <span>Already have an acoount?</span>
+                    <span className="opacity-50">Already have an account?</span>
                     <Link className="text-blue-600" to={"/"}>
                       Login
                     </Link>
