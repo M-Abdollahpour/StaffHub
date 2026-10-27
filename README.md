@@ -1,54 +1,101 @@
-# TechNova HR Panel
+# StaffHub — HR Management Panel
 
-A role-based employee management panel built as a portfolio project. Employees (users) manage their own personal profile, while admins oversee organizational data across the company — all backed by a simulated API so the demo runs without a real backend.
+A role-based employee management panel built as a front-end portfolio project. Employees sign up, manage their own profile and see a live session timer, while admins manage the company's employee records and view charts. The app runs entirely in the browser on mock data, so there is no backend to set up.
+
+**Live demo:** https://staff-hub-rosy.vercel.app/
+
+## Demo accounts
+
+| Role  | Email                          | Password         |
+| ----- | ------------------------------ | ---------------- |
+| Admin | `lucas.roberts23@technova.dev` | `UQ6ufaRP$Y!fG`  |
+| User  | `oliver.parker1@technova.dev`  | `BW@@*d4SgTCZGa` |
+
+You can also create your own account from the sign-up page. Sessions last 10 minutes.
 
 ## Features
 
-- **Authentication** — email/password login against mock employee data, with role-based redirect after login
-- **Role-based access** — two roles, `admin` and `user`, each seeing a tailored dashboard and sidebar
-- **Profile management** — employees view and edit their own personal information (contact details, education, work experience, skills, languages), with avatar upload (local preview, no real server)
-- **Dynamic, validated forms** — built with `react-hook-form` + `yup`, including dynamic add/remove fields for education and work history
-- **Simulated REST API** — mock `get`/`add`/`update`/`remove` functions that mimic real async API calls (with artificial delay), so the data layer can later be swapped for a real backend with minimal changes
-- **Persistent session** — logged-in state survives page refresh via Zustand's `persist` middleware
+**Authentication**
 
-## Tech Stack
+- Login with email and password against the mock employee list (emails are case-insensitive)
+- Sign-up with validation, password rules (8+ characters with a letter, a number and a special character) and a duplicate-email check
+- Simulated forgot-password flow (no email is sent; the password is reset directly)
+- Session persists across page refreshes
+- Session timer in the header with a countdown that turns red under 60 seconds; when it runs out, an overlay appears and the user is logged out automatically
 
-- **React** + **TypeScript**
-- **React Router** (layout routes for shared sidebar/header)
-- **Zustand** — state management (auth store with `persist`)
-- **React Hook Form** + **Yup** — form state and validation
-- **Ant Design** — UI components (forms, menus, modals, date pickers)
-- **Tailwind CSS** — layout and styling
+**Employee profile (all users)**
 
-## Project Structure
+- View and edit personal information, languages and skills
+- Dynamic education and work-experience lists (add and remove entries) built with `useFieldArray`
+- Year pickers, per-field validation messages and a loading state on save
+- Avatar upload with a local preview (the image is not stored)
 
-```
-src/
-├── components/       # UI components (admin/, user/, profile/, shared)
-├── stores/           # Zustand stores (e.g. useAuthStore)
-├── types/            # TypeScript types (Employee, roles, etc.)
-├── mocks/
-│   ├── data/          # Mock employee dataset
-│   └── api/           # Simulated API functions (get/add/update/remove)
-├── routes/           # Route-level pages (Login, Dashboard, Profile, Employees)
-└── hooks/            # Custom hooks
-```
+**Admin tools**
 
-## Data Model
+- Employee table with column search and highlighting, sorting, role and status filters, and pagination
+- Edit an employee's organizational fields (role, status, department, position, hire date) and remove employees with a confirmation modal
+- Charts page with bar charts for department, position, status, role and marital status, built on a reusable `CountChart` component that highlights the most common category
 
-Each employee record includes personal info (name, contact, city, address, gender, marital status), professional info (skills, languages, education history, work experience), and organizational info (department, position, role, status, hire date). Organizational fields are managed by admins; personal fields are self-managed by each employee.
+**Role-based navigation**
 
-## Getting Started
+- A shared dashboard layout with a collapsible sidebar; the Employees and Charts sections only appear in the navigation for admins
+
+## Tech stack
+
+- **React 19** and **TypeScript**
+- **React Router** in framework mode (SPA, `ssr: false`) with a layout route for the dashboard
+- **Zustand** with the `persist` middleware for auth, employees and the session timer
+- **React Hook Form** and **Yup** for forms and validation
+- **Ant Design** (tables, forms, selects, date pickers, modals) and **Tailwind CSS**
+- **ApexCharts** (`react-apexcharts`) for charts
+- **Vite**
+
+## Getting started
 
 ```bash
 npm install
 npm run dev
 ```
 
-The app runs entirely on mock data — no backend setup required. Sample login credentials are available in `mocks/data/data.ts`.
+Other scripts:
+
+```bash
+npm run build       # production build
+npm run typecheck   # generate route types and run tsc
+```
+
+## Project structure
+
+```
+app/
+├── components/
+│   ├── admin/        # admin dashboard content
+│   ├── users/        # user dashboard content
+│   ├── charts/       # reusable CountChart
+│   ├── employees/    # employee table (view) and admin edit form
+│   ├── profile/      # profile view and edit form
+│   └── timeOut/      # session countdown
+├── mocks/data/       # 100 mock employees across 10 departments
+├── routes/           # login, signup, forgot password, dashboard layout and pages
+├── stores/           # useAuthStore, useEmployeesStore, useTimerStore
+├── types/            # Employee type and related unions
+├── utils/            # countBy, getTopPoints
+└── routes.ts         # route configuration
+```
+
+## How it works
+
+- **Data layer:** `useEmployeesStore` holds the employee list, seeded from `mocks/data/data.ts`, and exposes `addEmployee`, `updateEmployee` and `removeEmployee`. Every screen reads and writes employees through this store. Short timeouts in the UI simulate network latency and loading states.
+- **Auth:** `useAuthStore` looks users up in the employee store, keeps `currentUser`, and clears the session timer on logout. `useTimerStore` stores the session end time rather than the remaining seconds, so the countdown stays correct after a refresh.
+- **Forms:** each form defines a Yup schema and connects to React Hook Form through `yupResolver`. Ant Design inputs such as `Select` and `DatePicker` are connected with `Controller`.
+
+## Good to know
+
+This is a demo, not a production auth system. Passwords are stored in plain text in the mock data, and all state (`auth`, `employees`, `timer-storage`) lives in `localStorage`. To reset the demo to its original data, clear the site's local storage.
 
 ## Roadmap
 
-- Employee management page for admins (view/edit organizational data, role-based access control)
-- Sign-up flow for new employees
-- Dashboard statistics and charts
+- Route guards: redirect logged-out visitors to the login page and block admin-only routes for regular users
+- A distinct admin dashboard with company statistics (both roles currently see a welcome message)
+- Replace the mock store with a real API
+- Avatar persistence and more charts (skills, languages)
